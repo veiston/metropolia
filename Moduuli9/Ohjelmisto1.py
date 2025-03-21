@@ -1,18 +1,16 @@
-def auto(rekisteri, huippunopeus):
-    rekisteritunnus = rekisteri
-    max_nopeus = huippunopeus
-    tämänhetkinen_nopeus = 0
-    kilometrit = 0
-    return rekisteritunnus, max_nopeus, tämänhetkinen_nopeus, kilometrit
+class _Auto:
+    def __init__(self, rekisteri, huippunopeus, tämänhetkinen_nopeus=0, kilometrit=0):
+        self.rekisteri = rekisteri
+        self.huippunopeus = huippunopeus
+        self.tämänhetkinen_nopeus = tämänhetkinen_nopeus
+        self.kilometrit = kilometrit
 
 def main():
-    rekisteri = input("syötä auton rekisteritunnus: ")
-    huippunopeus = int(input("syötä auton huippunopeus (km/h): "))
-    rekisteritunnus, max_nopeus, tämänhetkinen_nopeus, kilometrit = auto(rekisteri, huippunopeus)
-    print("Rekkari on", rekisteritunnus)
-    print("Huippunopeus on", max_nopeus, "km/h")
-    print("Tämänhetkinen nopeus on", tämänhetkinen_nopeus, "km/h")
-    print("Ajetut kilometrit ovat", kilometrit, "km")
+    auto = _Auto('ABC-123', 142)
+    print(f'Rekisteri: {auto.rekisteri}')
+    print(auto.huippunopeus)
+    print(auto.tämänhetkinen_nopeus)
+    print(auto.kilometrit)
 
 if __name__ == "__main__":
    main()
