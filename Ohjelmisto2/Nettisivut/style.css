@@ -1,0 +1,220 @@
+body {
+    font-family: 'Segoe UI', arial;
+    margin: 0;
+    padding: 0;
+    background: url('diogenes.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    background-color: #111;
+    line-height: 1.6;
+}
+
+body.palautus {
+    background: #000;
+    background-color: #000;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('diogenes.jpg') no-repeat center center fixed, rgba(0,0,0,0.85);
+    background-size: cover;
+    filter: blur(8px) brightness(0.5);
+    z-index: -1;
+    pointer-events: none;
+}
+
+header {
+    background-color: #181c24;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid #fff;
+}
+
+header h1 {
+    color: #fff;
+    margin: 0;
+    font-size: 3.5em;
+    text-shadow: 2px 2px 8px #000;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    background: rgba(20, 20, 20, 0.98);
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+}
+
+h2 {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+ul {
+    list-style-type: square;
+    margin-left: 40px;
+}
+
+ul.product-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.product-list li {
+    background: #222;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #fff;
+    transition: background 0.3s;
+    color: #fff;
+}
+
+ul.product-list li:hover {
+    background: #fff;
+    color: #222;
+}
+
+p {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #fff;
+    font-weight: normal;
+}
+
+a {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+a:focus, a:hover {
+    color: #fff;
+    background: #222;
+    outline: 2px solid #ffd700;
+}
+
+img {
+    display: square;
+    margin: 20px auto;
+    border: none;
+}
+
+img.product-image {
+    display: block;
+    max-width: 10%;
+    height: auto;
+    margin: 20px auto;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 16px #000;
+    object-fit: contain;
+}
+
+img.kartta {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: 20px auto;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 16px #000;
+    object-fit: contain;
+}
+
+footer {
+    background-color: #181c24;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    border-top: 3px solid #fff;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2c3e50;
+    padding: 10px 20px;
+}
+
+.logo {
+    max-height: 50px;
+    border-radius: 60%;
+    width: auto;
+    height: auto;
+    border: 2px solid #fff;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu ul li {
+    position: relative;
+    margin: 0 15px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    background: #222;
+}
+
+.menu ul li a:hover, .menu ul li a.active {
+    background: #ffd700;
+    color: #222;
+}
+
+.menu ul .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #181c24;
+    list-style: none;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu ul li:hover .dropdown {
+    display: block;
+}
+
+.menu ul .dropdown li {
+    margin: 0;
+}
+
+.menu ul .dropdown li a {
+    padding: 5px 20px;
+    display: block;
+    color: #fff;
+}
+
+.menu ul .dropdown li a:hover {
+    background-color: #ffd700;
+    color: #222;
+}
