@@ -1,0 +1,11 @@
+const k = document.getElementById('target');
+const eka = document.createElement('li');
+eka.textContent = 'First item';
+const toka = document.createElement('li');
+toka.textContent = 'Second item';
+toka.classList.add('my-item');
+const kolmas = document.createElement('li');
+kolmas.textContent = 'Third item';
+k.appendChild(eka);
+k.appendChild(toka);
+k.appendChild(kolmas);
