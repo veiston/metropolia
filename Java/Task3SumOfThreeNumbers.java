@@ -1,7 +1,7 @@
 
 import java.util.Scanner;
 
-public class task3_SumOfThreeNumbers {
+public class Task3SumOfThreeNumbers {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
