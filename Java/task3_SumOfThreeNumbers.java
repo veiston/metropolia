@@ -8,10 +8,10 @@ public class task3_SumOfThreeNumbers {
 
         /* Changed the variable dataatypes to Double */
         System.out.println("Give the first number:");
-        double first = Double.parseDouble(scanner.nextLine());
+        int first = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Give the second number:");
-        double second = Double.parseDouble(scanner.nextLine());
+        int second = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Give the third number:");
         double third = Double.parseDouble(scanner.nextLine());
