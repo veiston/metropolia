@@ -6,14 +6,15 @@ public class task3_SumOfThreeNumbers {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        /* Changed the variable dataatypes to Double */
         System.out.println("Give the first number:");
-        int first = Integer.parseInt(scanner.nextLine());
+        double first = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Give the second number:");
-        int second = Integer.parseInt(scanner.nextLine());
+        double second = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Give the third number:");
-        int third = Integer.parseInt(scanner.nextLine());
+        double third = Double.parseDouble(scanner.nextLine());
 
         System.out.println("The sum of the numbers is " + (first + second + third));
         /* calculate product of numbers */
