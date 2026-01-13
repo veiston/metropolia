@@ -16,7 +16,9 @@ public class task3_SumOfThreeNumbers {
         int third = Integer.parseInt(scanner.nextLine());
 
         System.out.println("The sum of the numbers is " + (first + second + third));
+        /* calculate product of numbers */
         System.out.println("The product of the numbers is " + (first * second * third));
+        /* calculate average of numbers */
         System.out.println("The average of the numbers is " + ((first + second + third)/3));
     }
 }
