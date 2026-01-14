@@ -12,7 +12,7 @@ public class Task1FahrenheitToCelsius {
         scanner.close(); /* ...Close the scanner to free resources */
 
         /* Perform conversion and output it */
-        double conversion = (input - 32) / 1.8;
+        double conversion = Math.floor((input - 32) / 1.8*10)/10;
         System.out.println(conversion);
         
     }

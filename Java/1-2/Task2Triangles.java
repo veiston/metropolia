@@ -18,7 +18,7 @@ public class Task2Triangles {
 
         /* Perform hypotenuse calculation and output it */
         double hypotenuse = Math.sqrt(input1 * input1 + input2 * input2);
-        /*ROUNDING! The "100" sets the rounding accuracy. */
+        /*ROUNDING! The "100" sets the rounding accuracy to 2 decimals */
         double truncated = Math.floor(hypotenuse * 100) / 100; 
         System.out.println("The hypotenuse is: " + truncated);
         
