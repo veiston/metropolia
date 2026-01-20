@@ -1,2 +1,2 @@
-# Veiston's metropolia assignments
-Beware! This repository contains my solutions to various assignments for Metropolia ICT. They surely do not adhere to the best practices. Use at your own risk! 😂
+# My Metropolia ICT assignments
+Beware! This repository contains all my good and bad solutions to various assignments. They surely do not adhere to the best practices. Check out at your own risk! 😂
