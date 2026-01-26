@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Task3ObsoleteMeasures {
-
     public static void main(String[] args) {
         /* Declare the variables */
         double luoti = 13.28;
