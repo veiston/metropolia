@@ -2,11 +2,11 @@ package Task1SportsCar;
 
 public class CarMain {
     public static void main(String[] args) {
-        /* Create car instances*/
+        /*Create car instancees*/
         Car car = new Car();
         SportsCar sportsCar = new SportsCar();
 
-        /* Wrum wrum mf*/
+        /*Wrum wrum*/
         car.accelerate();
         car.accelerate();
         sportsCar.accelerate();
@@ -15,7 +15,7 @@ public class CarMain {
         car.decelerate();
         sportsCar.decelerate();
 
-        System.out.println("Perus: " + car);
+        System.out.println("Paska auto (perus): " + car);
         System.out.println("Nopea auto: " + sportsCar);
     }
 }
