@@ -1,5 +1,3 @@
-package Task1SportsCar;
-
 public class Car {
     /* Declare variables*/
     private double speed;

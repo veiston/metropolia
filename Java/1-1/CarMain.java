@@ -1,4 +1,5 @@
-package Task1SportsCar;
+import Task1SportsCar.Car;
+import Task1SportsCar.SportsCar;
 
 public class CarMain {
     public static void main(String[] args) {
