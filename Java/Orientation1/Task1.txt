@@ -1,0 +1,28 @@
+
+public static class Task1 {
+
+    Complex adaptive systems - CAS -järjestelmät
+    emergoituvat monimutkaisesti monien
+    eri muuttujien synnyttämänä. Niiden taustatoimia
+    Voi olla vaikea eristää tai edes tunnistaa, siispä niitä
+    ei voi vain loogisesti "ratkaista".
+    Tähän tarkoitukseen ismuloiminen sopii täydellisesti.
+
+    Simuloimisessa on kyse iteratiivisesti
+    eri simulaatiolle asetettujen arvojen muuttaminen
+    ja sen avulla sen lopputulemien tarkastaminen
+    
+    Esimerkiksi tienpätkä, jossa tapahtuu liikennetapaturmia.
+    Tässä olevia muuttujia on vaikea määrittää, sekä niitä on paljon.
+    Tilannenopeus, tien kunto, auton kunto, auton paino,
+    kuskin mielentila, edelliset tienpätkät.
+    Simuloiminen sopisi tähän loistavasti.
+
+    Tässä tapauksessa oikeilla autoilla ...tai ihmisillä
+    testaaminen nostaisi tietysti kysymyksiä
+    triviaalista resurssien haaskaamisesta
+    sekä ...tietynlaisia eettisiä ongelmia.
+    Simuloiminen auttaa vähentämään autojen turhaa romuttamista.
+    
+
+}

@@ -1,0 +1,24 @@
+Ja homma jatkuu :D
+
+public static class Task2 {
+
+    Tienpätkä:
+    Tiesuunnittelu, auto, sää, ihmiset, mielentila, eläimet, luonto.
+
+    Tässäkin järjestelmässä kaikki vaihtelee.
+    Sää, ruuhkan määrä, tilannenopeudet, autojen paino
+    autojen kunto, tien materiaali, ilmakehän paine,
+    lämpö, mahdollinen kasvillisuus ja eläimet ...ja
+    inhimillinen tekijä - kaikkeen kurottava satunnaisuus. 
+
+    Monimutkaisessa järjestelmässä kaikki
+    vaikuttaa kaikkeen - reaaliajassa.
+    Yksi myöhäinen jarrutus, märkä lehtikasa tiellä, 
+    ruuhka seuraava risteys tukkeutuu ja
+    “pieni” poikkeama on koko tien ongelma.
+
+    Asioiden kytkeytyneisyys hankaloittaa niitä entisestään.
+    Risteys ei ole yksin, eristyksissä oleva palanen, vaan
+    se on osa suurempaa tieverkostoa jonka jokainen aiempi
+    mutka vikuttaa tien käyttäjiin, heidän autoihinsa.
+}
