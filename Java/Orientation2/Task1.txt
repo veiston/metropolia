@@ -1,0 +1,14 @@
+
+public static class Task1 {
+
+    a) 
+    Tyypillisessä jonotus-simuloimisessa asiakkaita saapuu
+    koko simuloinnin ajan. Saapumistapahtuma on ”mekanismi”, joka aikatauluttaa
+    seuraavan saapumisen. Jos se ei luo uutta, seuraavaa 
+    saapumista, asiakasvirta pysähtyy ensimmäisen asiakkaan jälkeen.
+
+    b) 
+    Palvelun alkaessa tulisi ajoittaa palvelun päättyminen
+    samalle palvelupisteelle käyttämällä palvelun kestoaikaa.
+
+}
