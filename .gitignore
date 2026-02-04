@@ -21,6 +21,8 @@ $RECYCLE.BIN/
 *.war
 *.ear
 *.json
+*.ser
+*.csv
 
 .classpath
 .project
