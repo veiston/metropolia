@@ -1,0 +1,18 @@
+
+public static class Task1 {
+
+    Ideani ikäjakauma-algolle:
+
+    Kirjataan luokan oppilaiden iät listaksi:
+    ages[] = {19, 20, 21, 22, 23, 24, 42, 69 ...}
+    amount[] = {5, 12, 20, 18, 9, 6 ...}
+    Jokainen amount-arvo kertoo kuinka monta sen ikäistä on.
+
+    Laske keskiarvo plussaamalla kaikki yhteen ja sitten
+    jakamalla saatu arvo listan arvojen määrällä.
+
+    Tämän jälkeen saatua keskiarvoa voi käyttää 
+    normaalijakauman muodostamiseen, joka suunnilleen 
+    vastaa luokan arvoja.
+
+}

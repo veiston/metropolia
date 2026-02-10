@@ -1,0 +1,14 @@
+
+public static class Task4 {
+
+    Esimerkkejä satunnaisjakaumista:
+
+    Normaalijakauma: arvot kasaantuvat keskiarvon ympärille.
+    Esimerkki: aikuisten pituus väestössä.
+    Nopea filosofinen take: Jos toimintasi tässä elämässä sijoittuu lähelle normaalijakaumaa
+     – et voi odottaa poikkeuksellisia tuloksia.
+
+    Poisson-jakauma: tapahtumien määrä jossakin ajassa tai muuten määriteltävässä "ikkunassa".
+    Esimerkki: puheluiden määrä minuutissa tai pizza-tilauksien määrä perjantaisin.
+
+}

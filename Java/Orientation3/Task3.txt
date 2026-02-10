@@ -1,0 +1,7 @@
+
+public static class Task3 {
+
+    Singleton-oliota ei voi luoda niiden ulkopuolelta,
+    koska konstruktori on tyypiltään "private". 
+    Vain Singleton-luokka voi kutsua omaa konstruktoriaan. 
+}
