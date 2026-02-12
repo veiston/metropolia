@@ -1,0 +1,15 @@
+
+public static class Task1 {
+
+    Terveysasema:
+    A = Jonoon tulleiden määrä
+    C = Montako saatiin palveltua
+    B = Kuinka pitkään palvelu kesti
+    T = Kuinka pitkään palvelut kesti yhteensä
+
+    Palvelupisteen muuttujista johdetut muuttujat:
+    U = B/T käyttössä olo % ajasta
+    X = C/T Potilaita hoidettu / ajassa
+    S = B/C Keskimääräinen hoitoaika
+
+}
