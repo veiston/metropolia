@@ -1,2 +1,1 @@
-// Assignment 6 script
-
+// JavaScript1 Assignment 6 script

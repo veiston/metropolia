@@ -3,14 +3,14 @@ const celsiusInput = prompt("Enter temperature in Celsius:");
 const celsius = Number(celsiusInput);
 
 if (Number.isNaN(celsius)) {
-  output.textContent = "Invalid input. Please enter a number.";
+  output.textContent = "Wroo! That won't work";
 } else {
   const fahrenheit = (celsius * 9) / 5 + 32;
   const kelvin = celsius + 273.15;
 
   output.innerHTML = `
-    <p>Celsius: ${celsius.toFixed(2)} °C</p>
-    <p>Fahrenheit: ${fahrenheit.toFixed(2)} °F</p>
-    <p>Kelvin: ${kelvin.toFixed(2)} K</p>
+    <p>C: ${celsius.toFixed(2)} °C</p>
+    <p>F: ${fahrenheit.toFixed(2)} °F</p>
+    <p>K: ${kelvin.toFixed(2)} K</p>
   `;
 }

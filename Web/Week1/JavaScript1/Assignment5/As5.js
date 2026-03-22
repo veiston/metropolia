@@ -2,7 +2,7 @@ const output = document.getElementById("output");
 const n = Number(prompt("Enter a positive integer:"));
 
 if (!Number.isInteger(n) || n <= 0) {
-  output.textContent = "Invalid input. Please enter a positive integer.";
+  output.textContent = "Wroo! That won't work";
 } else {
   let sum = 0;
 
@@ -10,5 +10,5 @@ if (!Number.isInteger(n) || n <= 0) {
     sum += i;
   }
 
-  output.textContent = `The sum of natural numbers from 1 to ${n} is ${sum}.`;
+  output.textContent = `Sum from 1 to ${n}: ${sum}.`;
 }

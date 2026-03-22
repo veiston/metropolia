@@ -4,7 +4,7 @@ const score = Number(prompt("Enter your score (0-100):"));
 let grade;
 
 if (Number.isNaN(score) || score < 0 || score > 100) {
-  output.textContent = "Invalid score. Enter a number between 0 and 100.";
+  output.textContent = "Wroo! That won't work";
 } else {
   if (score <= 39) {
     grade = 0;
@@ -20,5 +20,5 @@ if (Number.isNaN(score) || score < 0 || score > 100) {
     grade = 5;
   }
 
-  output.textContent = `Your grade is ${grade}.`;
+  output.textContent = `Grade: ${grade}.`;
 }

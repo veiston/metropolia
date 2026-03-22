@@ -1,9 +1,9 @@
 const output = document.getElementById("output");
 
-const x1 = Number(prompt("Enter x1:"));
-const y1 = Number(prompt("Enter y1:"));
-const x2 = Number(prompt("Enter x2:"));
-const y2 = Number(prompt("Enter y2:"));
+const x1 = Number(prompt("Enter point 1 x:"));
+const y1 = Number(prompt("Enter point 1 y:"));
+const x2 = Number(prompt("Enter point 2 x:"));
+const y2 = Number(prompt("Enter point 2 y:"));
 
 if (
   Number.isNaN(x1) ||
@@ -11,8 +11,7 @@ if (
   Number.isNaN(x2) ||
   Number.isNaN(y2)
 ) {
-  output.textContent =
-    "Invalid input. Please enter numbers for all coordinates.";
+  output.textContent = "Wroo! That won't work";
 } else {
   const dx = x2 - x1;
   const dy = y2 - y1;

@@ -12,19 +12,19 @@ if (
   b <= 0 ||
   c <= 0
 ) {
-  output.textContent = "Invalid input. Side lengths must be positive numbers.";
+  output.textContent = "Wroo! That won't work";
 } else if (a + b <= c || a + c <= b || b + c <= a) {
-  output.textContent = "These side lengths do not form a valid triangle.";
+  output.textContent = "Nope. That don't make a triangle.";
 } else {
   let triangleType = "";
 
   if (a === b && b === c) {
-    triangleType = "equilateral";
+    triangleType = "Equilateral";
   } else if (a === b || b === c || a === c) {
-    triangleType = "isosceles";
+    triangleType = "Isosceles";
   } else if (!(a === b) && !(b === c) && !(a === c)) {
-    triangleType = "scalene";
+    triangleType = "Scalene";
   }
 
-  output.textContent = `The triangle is ${triangleType}.`;
+  output.textContent = `Triangle type: ${triangleType}.`;
 }
