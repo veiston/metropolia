@@ -1,0 +1,33 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 28rem;
+}
+
+li {
+  border: 1px solid #000;
+  cursor: pointer;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem;
+}
+
+.highlight {
+  background-color: #d9f2ff;
+  font-weight: bold;
+}
+
+dialog {
+  border: 1px solid #000;
+  max-width: 28rem;
+  width: 100%;
+}
+
+#restaurant-details p {
+  margin: 0.35rem 0;
+}
