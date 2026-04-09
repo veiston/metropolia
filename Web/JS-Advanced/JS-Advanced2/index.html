@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Advanced2 Restaurant App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 900px;
+        margin: 24px auto;
+        padding: 0 16px;
+      }
+
+      .filters {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .filters button {
+        padding: 8px 12px;
+      }
+
+      .filters .active {
+        background: #1f5fbf;
+        color: #fff;
+        border-color: #1f5fbf;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid #d0d0d0;
+        padding: 10px;
+        text-align: left;
+      }
+
+      tr:hover {
+        background: #f5f5f5;
+        cursor: pointer;
+      }
+
+      .highlight {
+        background: #e8f2ff;
+      }
+
+      .message {
+        min-height: 1.5em;
+      }
+
+      .error {
+        color: #b00020;
+      }
+
+      dialog {
+        width: min(700px, 92vw);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Restaurants</h1>
+
+    <div class="filters">
+      <button type="button" data-filter="all" class="active">All</button>
+      <button type="button" data-filter="sodexo">Sodexo</button>
+      <button type="button" data-filter="compass">Compass</button>
+    </div>
+
+    <p id="message" class="message" role="status" aria-live="polite"></p>
+
+    <table id="restaurant-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Company</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <dialog id="restaurant-modal">
+      <div id="restaurant-modal-content"></div>
+      <button id="close-modal-btn" type="button">Close</button>
+    </dialog>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
