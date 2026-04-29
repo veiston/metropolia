@@ -1,0 +1,9 @@
+{
+  "root": "Web/React/3",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
