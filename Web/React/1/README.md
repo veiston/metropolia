@@ -1,4 +1,4 @@
-## Run this with
+## Run this locally with
 
 ```bash
 npm install && npm audit fix && npm run dev
