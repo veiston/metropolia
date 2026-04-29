@@ -2,9 +2,9 @@ import { Link, Outlet } from 'react-router';
 
 const Layout = () => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <nav>
-        <ul className="flex justify-end bg-gray-800 m-0 p-0 list-none">
+        <ul className="flex flex-row justify-end bg-gray-800 m-0 p-0 list-none">
           <li>
             <Link
               to="/"
@@ -32,7 +32,7 @@ const Layout = () => {
         </ul>
       </nav>
 
-      <main>
+      <main className="flex-1 p-8">
         <Outlet />
       </main>
     </div>
