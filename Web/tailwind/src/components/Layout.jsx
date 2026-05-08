@@ -1,42 +1,44 @@
-import { Link, Outlet } from 'react-router';
+import {Link, Outlet} from 'react-router';
+import {useUserContext} from '../hooks/contextHooks';
+import {useEffect} from 'react';
 
 const Layout = () => {
+  const {user, handleLogout, handleAutoLogin} = useUserContext();
+
+  useEffect(() => {
+    handleAutoLogin();
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <nav>
-        <ul className="flex flex-row justify-end bg-gray-800 m-0 p-0 list-none">
+    <div>
+      <nav className="bg-[#333333]">
+        <ul className="flex justify-end list-none m-0 p-0 overflow-hidden *:block *:text-white *:text-center *:no-underline">
           <li>
-            <Link
-              to="/"
-              className="block text-white text-center p-4 hover:bg-gray-900"
-            >
-              Home
-            </Link>
+            <Link className="block p-4 hover:bg-[#111111]" to="/">Home</Link>
           </li>
-          <li>
-            <Link
-              to="/profile"
-              className="block text-white text-center p-4 hover:bg-gray-900"
-            >
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/upload"
-              className="block text-white text-center p-4 hover:bg-gray-900"
-            >
-              Upload
-            </Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link className="block p-4 hover:bg-[#111111]" to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link className="block p-4 hover:bg-[#111111]" to="/upload">Upload</Link>
+              </li>
+              <li>
+                <button className="block p-4 hover:bg-[#111111] cursor-pointer" onClick={handleLogout}>Logout</button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link className="block p-4 hover:bg-[#111111]" to="/login">Login</Link>
+            </li>
+          )}
         </ul>
       </nav>
-
-      <main className="flex-1 p-8">
+      <main className="p-4">
         <Outlet />
       </main>
     </div>
   );
 };
-
 export default Layout;
