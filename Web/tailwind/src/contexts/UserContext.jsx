@@ -1,6 +1,6 @@
 import {createContext, useState} from 'react';
 import {useAuthentication, useUser} from '../hooks/apiHooks';
-import {useNavigate, useLocation} from 'react-router';
+import {useNavigate, useLocation} from 'react-router-dom';
 
 const UserContext = createContext(null);
 
