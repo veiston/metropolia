@@ -1,10 +1,22 @@
-import { useLocation, useNavigate } from 'react-router';
+import {useEffect} from 'react';
+import {useLocation, useNavigate} from 'react-router';
 
 const Single = () => {
-  const { state } = useLocation();
+  const {state} = useLocation();
   const navigate = useNavigate();
 
-  const item = state.item;
+  const item = state?.item;
+  const username = item?.username ?? item?.user_id;
+
+  useEffect(() => {
+    if (!item) {
+      navigate('/');
+    }
+  }, [item, navigate]);
+
+  if (!item) {
+    return null;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -27,7 +39,7 @@ const Single = () => {
       <p className="mb-2">{item.description}</p>
 
       <p className="mb-4 text-gray-600">
-        Owner: <span className="font-semibold">{item.username}</span>
+        Owner: <span className="font-semibold">{username}</span>
       </p>
 
       <button

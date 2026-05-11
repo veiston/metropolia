@@ -1,7 +1,8 @@
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 const MediaRow = (props) => {
-  const { item } = props;
+  const {item} = props;
+  const username = item.username ?? item.user_id;
 
   return (
     <tr>
@@ -14,7 +15,7 @@ const MediaRow = (props) => {
       </td>
 
       <td className="p-4 border border-gray-300 text-center">
-        {item.username}
+        {username}
       </td>
 
       <td className="p-4 border border-gray-300 text-center">
