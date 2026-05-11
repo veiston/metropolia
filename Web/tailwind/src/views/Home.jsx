@@ -1,6 +1,6 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import MediaRow from '../components/MediaRow';
-import {fetchData} from '../utils/fetchData';
+import { fetchData } from '../utils/fetchData';
 
 const Home = () => {
   const [mediaArray, setMediaArray] = useState([]);
@@ -33,32 +33,27 @@ const Home = () => {
     getMedia();
   }, []);
 
-  console.log(mediaArray);
-
   return (
     <>
-      <h2>My Media</h2>
+      <h2 className="text-2xl font-bold mb-4">My Media</h2>
 
-      <table className="w-full border-collapse">
+      <table className="w-full border-collapse bg-white text-black">
         <thead>
-          <tr>
-            <th className="p-4 border border-[#ccc] text-center">Thumbnail</th>
-            <th className="p-4 border border-[#ccc] text-center">Owner</th>
-            <th className="p-4 border border-[#ccc] text-center">Title</th>
-            <th className="p-4 border border-[#ccc] text-center">Description</th>
-            <th className="p-4 border border-[#ccc] text-center">Created</th>
-            <th className="p-4 border border-[#ccc] text-center">Size</th>
-            <th className="p-4 border border-[#ccc] text-center">Type</th>
-            <th className="p-4 border border-[#ccc] text-center">Action</th>
+          <tr className="bg-gray-200">
+            <th className="p-4 border border-gray-300">Thumbnail</th>
+            <th className="p-4 border border-gray-300">User</th>
+            <th className="p-4 border border-gray-300">Title</th>
+            <th className="p-4 border border-gray-300">Description</th>
+            <th className="p-4 border border-gray-300">Created</th>
+            <th className="p-4 border border-gray-300">Size</th>
+            <th className="p-4 border border-gray-300">Type</th>
+            <th className="p-4 border border-gray-300">Action</th>
           </tr>
         </thead>
 
         <tbody>
           {mediaArray.map((item) => (
-            <MediaRow
-              key={item.media_id}
-              item={item}
-            />
+            <MediaRow key={item.media_id} item={item} />
           ))}
         </tbody>
       </table>

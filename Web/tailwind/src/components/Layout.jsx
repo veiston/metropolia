@@ -1,44 +1,42 @@
-import {Link, Outlet} from 'react-router-dom';
-import {useUserContext} from '../hooks/contextHooks';
-import {useEffect} from 'react';
+import { Link, Outlet } from 'react-router';
 
 const Layout = () => {
-  const {user, handleLogout, handleAutoLogin} = useUserContext();
-
-  useEffect(() => {
-    handleAutoLogin();
-  }, []);
-
   return (
     <div>
-      <nav className="bg-[#333333]">
-        <ul className="flex justify-end list-none m-0 p-0 overflow-hidden *:block *:text-white *:text-center *:no-underline">
+      <nav>
+        <ul className="flex justify-end bg-gray-800 m-0 p-0 list-none">
           <li>
-            <Link className="block p-4 hover:bg-[#111111]" to="/">Home</Link>
+            <Link
+              to="/"
+              className="block text-white text-center p-4 hover:bg-gray-900"
+            >
+              Home
+            </Link>
           </li>
-          {user ? (
-            <>
-              <li>
-                <Link className="block p-4 hover:bg-[#111111]" to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link className="block p-4 hover:bg-[#111111]" to="/upload">Upload</Link>
-              </li>
-              <li>
-                <button className="block p-4 hover:bg-[#111111] cursor-pointer" onClick={handleLogout}>Logout</button>
-              </li>
-            </>
-          ) : (
-            <li>
-              <Link className="block p-4 hover:bg-[#111111]" to="/login">Login</Link>
-            </li>
-          )}
+          <li>
+            <Link
+              to="/profile"
+              className="block text-white text-center p-4 hover:bg-gray-900"
+            >
+              Profile
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/upload"
+              className="block text-white text-center p-4 hover:bg-gray-900"
+            >
+              Upload
+            </Link>
+          </li>
         </ul>
       </nav>
-      <main className="p-4">
+
+      <main>
         <Outlet />
       </main>
     </div>
   );
 };
+
 export default Layout;

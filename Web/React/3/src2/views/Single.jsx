@@ -1,22 +1,10 @@
-import {useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router';
 
 const Single = () => {
   const {state} = useLocation();
   const navigate = useNavigate();
 
-  const item = state?.item;
-  const username = item?.username ?? item?.user_id;
-
-  useEffect(() => {
-    if (!item) {
-      navigate('/');
-    }
-  }, [item, navigate]);
-
-  if (!item) {
-    return null;
-  }
+  const item = state.item;
 
   return (
     <>
@@ -31,7 +19,6 @@ const Single = () => {
       )}
 
       <p>{item.description}</p>
-      <p>Owner: {username}</p>
 
       <button onClick={() => navigate(-1)}>Go back</button>
     </>

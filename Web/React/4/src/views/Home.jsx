@@ -1,39 +1,54 @@
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import MediaRow from '../components/MediaRow';
 import {fetchData} from '../utils/fetchData';
 
 const Home = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
-  const getMedia = async () => {
-    try {
-      const mediaUrl = import.meta.env.VITE_MEDIA_API + '/media';
-      const userUrl = import.meta.env.VITE_AUTH_API + '/users/';
-
-      const media = await fetchData(mediaUrl);
-
-      const mediaWithUsers = await Promise.all(
-        media.map(async (item) => {
-          const user = await fetchData(userUrl + item.user_id);
-
-          return {
-            ...item,
-            username: user.username,
-          };
-        })
-      );
-
-      setMediaArray(mediaWithUsers);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getMedia();
-  }, []);
+    const loadMedia = async () => {
+      try {
+        const mediaApi = import.meta.env.VITE_MEDIA_API;
+        const authApi = import.meta.env.VITE_AUTH_API;
 
-  console.log(mediaArray);
+        if (!mediaApi || !authApi) {
+          const media = await fetchData(
+            `${import.meta.env.BASE_URL}test.json`
+          );
+
+          setMediaArray(
+            media.map((item) => ({
+              ...item,
+              username: item.user_id,
+            }))
+          );
+          return;
+        }
+
+        const mediaUrl = mediaApi + '/media';
+        const userUrl = authApi + '/users/';
+
+        const media = await fetchData(mediaUrl);
+
+        const mediaWithUsers = await Promise.all(
+          media.map(async (item) => {
+            const user = await fetchData(userUrl + item.user_id);
+
+            return {
+              ...item,
+              username: user.username,
+            };
+          })
+        );
+
+        setMediaArray(mediaWithUsers);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    void loadMedia();
+  }, []);
 
   return (
     <>
@@ -43,6 +58,7 @@ const Home = () => {
         <thead>
           <tr>
             <th>Thumbnail</th>
+            <th>User</th>
             <th>Title</th>
             <th>Description</th>
             <th>Created</th>
