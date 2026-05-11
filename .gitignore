@@ -20,7 +20,6 @@ target
 *.jar
 *.war
 *.ear
-*.json
 *.ser
 *.csv
 
@@ -296,3 +295,4 @@ storybook-static/
 
 .env
 .env.*
+.vscode/launch.json
