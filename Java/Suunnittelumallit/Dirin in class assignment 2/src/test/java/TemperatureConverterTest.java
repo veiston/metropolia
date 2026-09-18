@@ -1,6 +1,8 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TemperatureConverterTest {
 
@@ -23,6 +25,13 @@ class TemperatureConverterTest {
         assertEquals(32.0, converter.celsiusToFahrenheit(0.0), 0.001);
         assertEquals(212.0, converter.celsiusToFahrenheit(100.0), 0.001);
         assertEquals(-40.0, converter.celsiusToFahrenheit(-40.0), 0.001);
+    }
+
+    @Test
+    void testkelvinToCelsius() {
+        assertEquals(0, converter.kelvinToCelsius(273.15), 0.001);
+        assertEquals(100, converter.kelvinToCelsius(373.15), 0.001);
+        assertEquals(-273.15, converter.kelvinToCelsius(0), 0.001);
     }
 
     @Test
