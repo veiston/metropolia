@@ -135,8 +135,9 @@ class ticTacToe extends Game {
             turn = "O";
         }
 
+        // AI makes it's move!
         if (useAIPlayer && player == 1) {
-            System.out.println("AI's turn");
+            System.out.println("\nAI's turn");
             for (int slot = 0; slot < 9; slot++) {
                 if (board[slot].equals(String.valueOf(slot + 1))) {
                     board[slot] = turn;
