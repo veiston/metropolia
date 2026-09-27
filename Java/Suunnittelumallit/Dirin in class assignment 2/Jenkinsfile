@@ -1,0 +1,77 @@
+pipeline {
+    agent any
+
+    environment {
+        // My Monolith. Monorepo folder path
+        APP_DIR = 'Java/Suunnittelumallit/Dirin in class assignment 2'
+        IMAGE = 'veiston/temperature-converter:latest'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/veiston/metropolia.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir(APP_DIR) {
+                    bat 'mvn clean install -DskipTests'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir(APP_DIR) {
+                    bat 'mvn test'
+                }
+            }
+        }
+
+        stage('Code Coverage') {
+            steps {
+                dir(APP_DIR) {
+                    bat 'mvn jacoco:report'
+                }
+            }
+        }
+
+        stage('Publish Test Results') {
+            steps {
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
+
+        stage('Publish Coverage Report') {
+            steps {
+                jacoco()
+            }
+        }
+
+        stage('Docker Build & Run') {
+            steps {
+                dir(APP_DIR) {
+                    bat "docker build -t ${IMAGE} ."
+                    bat "docker run --rm ${IMAGE}"
+                }
+            }
+        }
+
+        stage('Deploy to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    bat 'echo %PASS% | docker login -u %USER% --password-stdin'
+                    bat "docker push ${IMAGE}"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline execution finished.'
+        }
+    }
+}
