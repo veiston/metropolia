@@ -1,6 +1,6 @@
 FROM eclipse-temurin:21-jre
 RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
+    libgl1 \
     libgtk-3-0 \
     libx11-6 \
     libxext6 \
