@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    tools {
+        // Uses the Maven installation configured in your Jenkins
+        maven 'Maven 3.9'
+    }
+
+    environment {
+        APP_DIR = 'Java/Suunnittelumallit/Dirin in class assignment 2'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/veiston/metropolia.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir(APP_DIR) {
+                    sh 'mvn clean install -DskipTests'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir(APP_DIR) {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Code Coverage') {
+            steps {
+                dir(APP_DIR) {
+                    sh 'mvn jacoco:report'
+                }
+            }
+        }
+
+        stage('Publish Test Results') {
+            steps {
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
+
+        stage('Publish Coverage Report') {
+            steps {
+                recordCoverage(tools: [[parser: 'JACOCO', pattern: '**/target/site/jacoco/jacoco.xml']])
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline execution finished.'
+        }
+    }
+}
