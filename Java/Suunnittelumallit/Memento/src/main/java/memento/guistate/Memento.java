@@ -1,4 +1,4 @@
-
+package memento.guistate;
 
 public class Memento implements IMemento {
     private int[] options;
