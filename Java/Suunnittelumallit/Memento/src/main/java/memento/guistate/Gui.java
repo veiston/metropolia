@@ -1,14 +1,15 @@
 package memento.guistate;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.geometry.Insets;
-import javafx.scene.input.KeyCode;
 
 public class Gui extends Application {
 
@@ -45,10 +46,11 @@ public class Gui extends Application {
 
 
         Label label = new Label("Press Ctrl-Z to undo the last change.");
+        Label label2 = new Label("Press Ctrl-Y to redo the last change.");
         label.setPadding(insets);
 
         // create a VBox that contains the HBox and the CheckBox
-        VBox vBox = new VBox(hBox, checkBox, label);
+        VBox vBox = new VBox(hBox, checkBox, label, label2);
         // call controller when the CheckBox is clicked
         checkBox.setOnAction(event -> {
             controller.setIsSelected(checkBox.isSelected());
@@ -62,8 +64,28 @@ public class Gui extends Application {
                 System.out.println("Undo key combination pressed");
                 controller.undo();
             }
+            else if (event.isControlDown() && event.getCode() == KeyCode.Y) {
+                // Ctrl-Y: Redo
+                System.out.println("Redo key combination pressed");
+                controller.redo();
+            }
         });
 
+        // Create history window
+        Stage historyStage = new Stage();
+        historyStage.setTitle("History");
+
+        ListView<IMemento> historyListView = new ListView<>(controller.getHistory());
+        historyListView.setOnMouseClicked(event -> {
+            IMemento selectedMemento = historyListView.getSelectionModel().getSelectedItem();
+            if (selectedMemento != null) {
+                controller.restoreFromHistory(selectedMemento);
+            }
+        });
+
+        VBox historyVBox = new VBox(historyListView);
+        historyStage.setScene(new Scene(historyVBox, 240, 300));
+        historyStage.show();
 
         stage.setScene(scene);
         stage.setTitle("Memento Pattern Example");
