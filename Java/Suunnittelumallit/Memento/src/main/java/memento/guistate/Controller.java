@@ -2,19 +2,20 @@ package memento.guistate;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Controller {
     private Model model;
     private Gui gui;
-    private ObservableList<IMemento> history; // Memento history
-    private List<IMemento> redoHistory;
+    private ObservableList<IMemento> undoHistory; // Memento history
+    private List<IMemento> redoHistory; // Redo history
 
     public Controller(Gui gui) {
         this.model = new Model();
         this.gui = gui;
-        this.history = FXCollections.observableArrayList();
+        this.undoHistory = FXCollections.observableArrayList();
         this.redoHistory = new ArrayList<>();
     }
 
@@ -37,7 +38,7 @@ public class Controller {
     }
 
     public ObservableList<IMemento> getHistory() {
-        return history;
+        return undoHistory;
     }
 
     public void restoreFromHistory(IMemento state) {
@@ -47,20 +48,22 @@ public class Controller {
         }
     }
 
+    // Undo controller
     public void undo() {
-        if (!history.isEmpty()) {
+        if (!undoHistory.isEmpty()) {
             System.out.println("Memento found in history");
             redoHistory.add(model.createMemento());
-            IMemento previousState = history.remove(history.size() - 1);
+            IMemento previousState = undoHistory.remove(undoHistory.size() - 1);
             model.restoreState(previousState);
             gui.updateGui();
         }
     }
 
+    // Redo controller
     public void redo() {
         if (!redoHistory.isEmpty()) {
             System.out.println("Memento found in redo history");
-            history.add(model.createMemento());
+            undoHistory.add(model.createMemento());
             IMemento nextState = redoHistory.remove(redoHistory.size() - 1);
             model.restoreState(nextState);
             gui.updateGui();
@@ -69,7 +72,7 @@ public class Controller {
 
     private void saveToHistory() {
         IMemento currentState = model.createMemento();
-        history.add(currentState);
+        undoHistory.add(currentState);
         redoHistory.clear();
     }
 }

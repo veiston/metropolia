@@ -5,11 +5,13 @@ So, the problem being: Converting temperatures between Celsius, Fahrenheit, and 
 
 This converts the temperature converter into a JavaFX desktop app with SQLite database persistence:
 
-- JavaFX GUI for converting temperatures between Celsius, Fahrenheit, and Kelvin.
+- JavaFX FXML GUI for converting temperatures between Celsius, Fahrenheit, and Kelvin.
+- Dynamic runtime GUI localization (i18n) across 5 languages: English, Finnish, Swedish, Japanese, and Arabic (with RTL).
 - SQLite database with two related tables to track units and conversion history.
 - JUnit 5 unit tests with JaCoCo code coverage.
 - Dockerfile supporting X11/XMing display forwarding, deployed to Docker Hub.
-- Jenkinsfile for CI pipeline automation.
+- Jenkinsfile for CI pipeline automation (build, test, jacoco, docker build & push).
+- Kubernetes deployment manifest (`temperature-converter.yaml`) for Minikube.
 
 ## 2. Technologies & Tools Used
 
@@ -80,7 +82,14 @@ mvn test
 docker run -e DISPLAY=host.docker.internal:0.0 --rm veiston/temperature-converter:latest
 ```
 
+### Run with Minikube (Kubernetes)
+
+```bash
+minikube start
+kubectl apply -f temperature-converter.yaml
+```
+
 ## Links
 
-- **GitHub**: <https://github.com/veiston/metropolia/tree/main/Java/Suunnittelumallit/Dirin%20in%20class%20assignment%202>
+- **GitHub**: <https://github.com/veiston/metropolia/tree/main/Java/Suunnittelumallit/Ohjelmistotuotantoprojekti%202%20Individuals/TemperatureConverter>
 - **Docker Hub**: <https://hub.docker.com/r/veiston/temperature-converter>
