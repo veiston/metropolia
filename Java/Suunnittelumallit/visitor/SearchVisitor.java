@@ -1,19 +1,27 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class SearchVisitor implements FileSystemVisitor {
-    private Predicate<File> criterion;
-    private List<File> matchingFiles = new ArrayList<>();
+    private String criterion;
+    private List<File> matchingFiles;
 
-    public SearchVisitor(Predicate<File> criterion) {
+    public SearchVisitor(String criterion) {
         this.criterion = criterion;
+        this.matchingFiles = new ArrayList<>();
     }
 
     @Override
     public void visit(File file) {
-        if (criterion.test(file)) {
+        // Accumulate matching files
+        if (file.getName().contains(criterion)) {
             matchingFiles.add(file);
+        }
+    }
+
+    @Override
+    public void visit(Directory directory) {
+        for (FileSystemElement element : directory.getElements()) {
+            element.accept(this);
         }
     }
 

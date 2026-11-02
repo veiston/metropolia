@@ -22,12 +22,13 @@ public class DocumentProxy implements IDocument {
     @Override
     public String getContent(User user) {
         if (user == null) {
-            throw new AccessDeniedException("Access denied: User is null.");
+            throw new AccessDeniedException("User is null");
         }
 
-        boolean isAllowed = accessControlService.isAllowed(document.getId(), user.getUsername());
-        if (!isAllowed) {
-            throw new AccessDeniedException("Access denied: User '" + user.getUsername() + "' does not have permission to view document '" + document.getId() + "'.");
+        // Check access
+        boolean allowed = accessControlService.isAllowed(document.getId(), user.getUsername());
+        if (!allowed) {
+            throw new AccessDeniedException("Access denied: " + user.getUsername());
         }
 
         return document.getContent(user);

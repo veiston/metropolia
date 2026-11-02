@@ -1,6 +1,6 @@
 public class File implements FileSystemElement {
     private String name;
-    private double size; // Size in megabytes
+    private double size; // Size in MB
 
     public File(String name, double size) {
         this.name = name;

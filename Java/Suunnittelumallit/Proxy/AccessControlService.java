@@ -1,26 +1,40 @@
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class AccessControlService {
-    private static final AccessControlService INSTANCE = new AccessControlService();
-    private final Set<String> permissions = new HashSet<>();
+    private static AccessControlService instance;
+    private Map<String, Set<String>> allowedUsers; // documentId -> usernames
 
     private AccessControlService() {
+        this.allowedUsers = new HashMap<>();
     }
 
     public static AccessControlService getInstance() {
-        return INSTANCE;
+        if (instance == null) {
+            instance = new AccessControlService();
+        }
+        return instance;
     }
 
     public void grantAccess(String documentId, String username) {
-        permissions.add(username + ":" + documentId);
+        if (!allowedUsers.containsKey(documentId)) {
+            allowedUsers.put(documentId, new HashSet<>());
+        }
+        allowedUsers.get(documentId).add(username);
     }
 
     public void revokeAccess(String documentId, String username) {
-        permissions.remove(username + ":" + documentId);
+        if (allowedUsers.containsKey(documentId)) {
+            allowedUsers.get(documentId).remove(username);
+        }
     }
 
     public boolean isAllowed(String documentId, String username) {
-        return permissions.contains(username + ":" + documentId);
+        if (allowedUsers.containsKey(documentId)) {
+            return allowedUsers.get(documentId).contains(username);
+        }
+        return false;
     }
 }

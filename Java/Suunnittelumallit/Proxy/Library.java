@@ -6,22 +6,23 @@ public class Library {
     private Map<String, IDocument> documents;
 
     public Library() {
-        documents = new HashMap<>();
+        this.documents = new HashMap<>();
     }
 
     public void addDocument(IDocument document) {
         documents.put(document.getId(), document);
     }
 
-    public void addProtectedDocument(String id, LocalDate creationDate, String content) {
-        Document realDocument = new Document(id, creationDate, content);
-        DocumentProxy proxy = new DocumentProxy(realDocument);
+    // Factory method for protected document
+    public void createProtectedDocument(String id, LocalDate date, String content) {
+        Document document = new Document(id, date, content);
+        DocumentProxy proxy = new DocumentProxy(document);
         documents.put(id, proxy);
     }
 
-    public void addUnprotectedDocument(String id, LocalDate creationDate, String content) {
-        Document realDocument = new Document(id, creationDate, content);
-        documents.put(id, realDocument);
+    public void createUnprotectedDocument(String id, LocalDate date, String content) {
+        Document document = new Document(id, date, content);
+        documents.put(id, document);
     }
 
     public IDocument getDocument(String id) {
