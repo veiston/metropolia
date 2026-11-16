@@ -1,5 +1,7 @@
 import java.sql.Connection;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,6 +31,9 @@ public class MainController {
     private ComboBox<TemperatureUnit> targetCombo;
 
     @FXML
+    private Label descriptionLabel;
+
+    @FXML
     private Button convertButton;
 
     @FXML
@@ -44,20 +49,23 @@ public class MainController {
     private TemperatureUnitDAO unitDAO;
     private TempRecordDAO recordDAO;
     private ResourceBundle messages;
+    private Locale currentLocale = Locale.of("en", "US");
     private boolean isUpdatingLanguage = false;
 
     @FXML
     public void initialize() {
         initDatabase();
         historyView.setItems(historyList);
-        loadUnits();
-        refreshHistory();
+        sourceCombo.setOnAction(e -> updateDescription());
         populateLanguages();
     }
 
     public void setResources(ResourceBundle bundle, Locale currentLocale) {
         this.messages = bundle;
+        this.currentLocale = currentLocale;
         syncLanguageSelection(currentLocale);
+        loadUnits(currentLocale.getLanguage());
+        refreshHistory();
     }
 
     @FXML
@@ -88,14 +96,14 @@ public class MainController {
 
         try {
             double inputVal = Double.parseDouble(text);
-            double outputVal = calculator.convert(inputVal, source.getName(), target.getName());
+            double outputVal = calculator.convert(inputVal, source.getSymbol(), target.getSymbol());
             double rounded = Math.round(outputVal * 100.0) / 100.0;
 
             String resultText = MessageFormat.format(
                     messages.getString("converter.result"),
-                    inputVal, source.getSymbol(), rounded, target.getSymbol());
+                    inputVal, source.getName(), rounded, target.getName());
 
-            double inCelsius = convertToCelsius(inputVal, source.getName());
+            double inCelsius = convertToCelsius(inputVal, source);
             if (tempConverter.isExtremeTemperature(inCelsius)) {
                 resultText = resultText + "\n" + messages.getString("converter.extreme");
             }
@@ -109,11 +117,11 @@ public class MainController {
         }
     }
 
-    private double convertToCelsius(double value, String unitName) {
-        if (unitName.equalsIgnoreCase("Fahrenheit")) {
+    private double convertToCelsius(double value, TemperatureUnit unit) {
+        if (unit.getSymbol().equalsIgnoreCase("F") || unit.getName().equalsIgnoreCase("Fahrenheit")) {
             return tempConverter.fahrenheitToCelsius(value);
         }
-        if (unitName.equalsIgnoreCase("Kelvin")) {
+        if (unit.getSymbol().equalsIgnoreCase("K") || unit.getName().equalsIgnoreCase("Kelvin")) {
             return tempConverter.kelvinToCelsius(value);
         }
         return value;
@@ -122,7 +130,12 @@ public class MainController {
     private void saveRecord(double inputVal, int sourceId, double outputVal, int targetId) {
         if (recordDAO != null) {
             try {
-                TempRecord record = new TempRecord(inputVal, sourceId, outputVal, targetId);
+                String lang = "en";
+                if (currentLocale != null) {
+                    lang = currentLocale.getLanguage();
+                }
+                String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                TempRecord record = new TempRecord(inputVal, sourceId, outputVal, targetId, lang, timestamp);
                 recordDAO.save(record);
                 refreshHistory();
             } catch (Exception e) {
@@ -159,12 +172,12 @@ public class MainController {
         }
     }
 
-    private void loadUnits() {
+    private void loadUnits(String lang) {
         if (unitDAO == null) {
             return;
         }
         try {
-            List<TemperatureUnit> units = unitDAO.findAll();
+            List<TemperatureUnit> units = unitDAO.findAll(lang);
             sourceCombo.getItems().setAll(units);
             targetCombo.getItems().setAll(units);
 
@@ -174,8 +187,21 @@ public class MainController {
             if (units.size() > 1) {
                 targetCombo.setValue(units.get(1));
             }
+            updateDescription();
         } catch (Exception e) {
             System.err.println("Could not load units: " + e.getMessage());
+        }
+    }
+
+    private void updateDescription() {
+        if (descriptionLabel == null) {
+            return;
+        }
+        TemperatureUnit selected = sourceCombo.getValue();
+        if (selected != null && selected.getDescription() != null && !selected.getDescription().isEmpty()) {
+            descriptionLabel.setText(selected.getDescription());
+        } else {
+            descriptionLabel.setText("");
         }
     }
 
@@ -185,13 +211,27 @@ public class MainController {
         }
         try {
             historyList.clear();
-            List<TempRecord> records = recordDAO.findAll();
+            List<TempRecord> records = recordDAO.findRecent(5);
             for (TempRecord record : records) {
-                String line = record.getInputValue() + " -> " + record.getOutputValue();
+                String fromName = getUnitName(record.getSourceUnitId());
+                String toName = getUnitName(record.getTargetUnitId());
+                String line = record.getInputValue() + " " + fromName + " -> " + record.getOutputValue() + " " + toName
+                        + " [" + record.getLanguage() + "] (" + record.getTimestamp() + ")";
                 historyList.add(line);
             }
         } catch (Exception e) {
             System.err.println("Could not refresh history: " + e.getMessage());
         }
+    }
+
+    private String getUnitName(int unitId) {
+        if (sourceCombo != null) {
+            for (TemperatureUnit unit : sourceCombo.getItems()) {
+                if (unit.getId() == unitId) {
+                    return unit.getName();
+                }
+            }
+        }
+        return "#" + unitId;
     }
 }

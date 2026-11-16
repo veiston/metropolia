@@ -23,20 +23,34 @@ public class TempCalculator {
 
         // Convert to baseline (Celsius)
         double inCelsius = value;
-        if (fromUnit.equalsIgnoreCase("Fahrenheit")) {
+        if (isFahrenheit(fromUnit)) {
             inCelsius = fahrenheitToCelsius(value);
-        } else if (fromUnit.equalsIgnoreCase("Kelvin")) {
+        } else if (isKelvin(fromUnit)) {
             inCelsius = kelvinToCelsius(value);
         }
 
         // Convert baseline to destination
-        if (toUnit.equalsIgnoreCase("Fahrenheit")) {
+        if (isFahrenheit(toUnit)) {
             return celsiusToFahrenheit(inCelsius);
         }
-        if (toUnit.equalsIgnoreCase("Kelvin")) {
+        if (isKelvin(toUnit)) {
             return celsiusToKelvin(inCelsius);
         }
 
         return inCelsius;
+    }
+
+    private boolean isFahrenheit(String unit) {
+        if (unit.equalsIgnoreCase("Fahrenheit") || unit.equalsIgnoreCase("F")) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isKelvin(String unit) {
+        if (unit.equalsIgnoreCase("Kelvin") || unit.equalsIgnoreCase("K")) {
+            return true;
+        }
+        return false;
     }
 }

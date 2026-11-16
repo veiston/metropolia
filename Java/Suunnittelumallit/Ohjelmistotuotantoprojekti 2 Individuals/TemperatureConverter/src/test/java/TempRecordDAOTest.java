@@ -41,5 +41,35 @@ class TempRecordDAOTest {
         assertEquals(1, saved.getSourceUnitId());
         assertEquals(212.0, saved.getOutputValue(), DELTA);
         assertEquals(2, saved.getTargetUnitId());
+        assertEquals("en", saved.getLanguage());
+    }
+
+    @Test
+    void testSaveAndFindRecentLimitFive() throws SQLException {
+        // Save 7 conversion records
+        for (int i = 1; i <= 7; i++) {
+            TempRecord record = new TempRecord(
+                    i * 10.0,
+                    1,
+                    i * 18.0 + 32.0,
+                    2,
+                    "ja",
+                    "2026-11-06 00:00:0" + i
+            );
+            dao.save(record);
+        }
+
+        List<TempRecord> recent = dao.findRecent(5);
+        assertEquals(5, recent.size());
+
+        // Most recent record (7th inserted) should be first
+        TempRecord mostRecent = recent.get(0);
+        assertEquals(70.0, mostRecent.getInputValue(), DELTA);
+        assertEquals("ja", mostRecent.getLanguage());
+        assertEquals("2026-11-06 00:00:07", mostRecent.getTimestamp());
+
+        // Fifth most recent record should be the 3rd inserted (value 30.0)
+        TempRecord fifthRecent = recent.get(4);
+        assertEquals(30.0, fifthRecent.getInputValue(), DELTA);
     }
 }

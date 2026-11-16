@@ -42,17 +42,26 @@ class TempCalculatorTest {
     @Test
     void testConvertSameUnit() {
         assertEquals(25.0, calculator.convert(25.0, "Celsius", "Celsius"), DELTA);
+        assertEquals(25.0, calculator.convert(25.0, "C", "C"), DELTA);
     }
 
     @Test
     void testConvertFahrenheitToKelvin() {
         // 32 F is 0 C, which is 273.15 K
         assertEquals(273.15, calculator.convert(32.0, "Fahrenheit", "Kelvin"), DELTA);
+        assertEquals(273.15, calculator.convert(32.0, "F", "K"), DELTA);
     }
 
     @Test
     void testConvertKelvinToFahrenheit() {
         // 373.15 K is 100 C, which is 212 F
         assertEquals(212.0, calculator.convert(373.15, "Kelvin", "Fahrenheit"), DELTA);
+        assertEquals(212.0, calculator.convert(373.15, "K", "F"), DELTA);
+    }
+
+    @Test
+    void testConvertCelsiusToFahrenheitAndKelvin() {
+        assertEquals(212.0, calculator.convert(100.0, "C", "F"), DELTA);
+        assertEquals(373.15, calculator.convert(100.0, "C", "K"), DELTA);
     }
 }

@@ -14,8 +14,8 @@
       fx:controller="MainController"
       spacing="12"
       alignment="TOP_LEFT"
-      prefWidth="440"
-      prefHeight="480">
+      prefWidth="460"
+      prefHeight="520">
     <padding>
         <Insets top="16" right="16" bottom="16" left="16"/>
     </padding>
@@ -36,6 +36,8 @@
         <Label text="%converter.to"/>
         <ComboBox fx:id="targetCombo"/>
     </HBox>
+
+    <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 12px; -fx-text-fill: #555555;"/>
 
     <Button fx:id="convertButton" text="%converter.button" onAction="#handleConversion"/>
 

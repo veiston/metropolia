@@ -35,7 +35,7 @@ public class Main extends Application {
         Locale defaultLocale = SUPPORTED_LANGUAGES.get("English");
 
         Parent root = loadFxml(defaultLocale);
-        Scene scene = new Scene(root, 440, 480);
+        Scene scene = new Scene(root, 460, 520);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle(ResourceBundle.getBundle("MessagesBundle", defaultLocale).getString("converter.title"));
