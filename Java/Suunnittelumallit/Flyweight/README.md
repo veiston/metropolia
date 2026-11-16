@@ -1,5 +1,4 @@
 ### Run it:
 ```bash
-javac *.java
-java Main
+mvn javafx:run
 ```
