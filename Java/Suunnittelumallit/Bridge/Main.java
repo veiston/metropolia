@@ -9,8 +9,11 @@ public class Main {
 
         System.out.println();
         Device radio = new Radio();
-        Remote radioRemote = new Remote(radio);
+        // Any remote works with any device
+        SmartRemote radioRemote = new SmartRemote(radio);
         radioRemote.power();
+        radioRemote.channelUp();
+        radioRemote.voiceControl("mute");
         radio.printStatus();
 
         System.out.println();

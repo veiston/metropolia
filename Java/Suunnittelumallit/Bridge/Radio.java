@@ -1,57 +1,7 @@
-public class Radio implements Device {
-    private boolean on = false;
-    private int volume = 20;
-    private int channel = 1;
+public class Radio extends Device {
+    private static final int DEFAULT_VOLUME = 20;
 
-    @Override
-    public boolean isEnabled() {
-        return on;
-    }
-
-    @Override
-    public void enable() {
-        on = true;
-    }
-
-    @Override
-    public void disable() {
-        on = false;
-    }
-
-    @Override
-    public int getVolume() {
-        return volume;
-    }
-
-    @Override
-    public void setVolume(int volume) {
-        if (volume > 100) {
-            this.volume = 100;
-        } else if (volume < 0) {
-            this.volume = 0;
-        } else {
-            this.volume = volume;
-        }
-    }
-
-    @Override
-    public int getChannel() {
-        return channel;
-    }
-
-    @Override
-    public void setChannel(int channel) {
-        this.channel = channel;
-    }
-
-    @Override
-    public void printStatus() {
-        if (on) {
-            System.out.println("Radio is enabled");
-        } else {
-            System.out.println("Radio is disabled");
-        }
-        System.out.println("Current volume: " + volume + "%");
-        System.out.println("Current channel: " + channel);
+    public Radio() {
+        super("Radio", DEFAULT_VOLUME);
     }
 }

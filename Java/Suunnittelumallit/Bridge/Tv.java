@@ -1,57 +1,7 @@
-public class Tv implements Device {
-    private boolean on = false;
-    private int volume = 30;
-    private int channel = 1;
+public class Tv extends Device {
+    private static final int DEFAULT_VOLUME = 30;
 
-    @Override
-    public boolean isEnabled() {
-        return on;
-    }
-
-    @Override
-    public void enable() {
-        on = true;
-    }
-
-    @Override
-    public void disable() {
-        on = false;
-    }
-
-    @Override
-    public int getVolume() {
-        return volume;
-    }
-
-    @Override
-    public void setVolume(int volume) {
-        if (volume > 100) {
-            this.volume = 100;
-        } else if (volume < 0) {
-            this.volume = 0;
-        } else {
-            this.volume = volume;
-        }
-    }
-
-    @Override
-    public int getChannel() {
-        return channel;
-    }
-
-    @Override
-    public void setChannel(int channel) {
-        this.channel = channel;
-    }
-
-    @Override
-    public void printStatus() {
-        if (on) {
-            System.out.println("TV is enabled");
-        } else {
-            System.out.println("TV is disabled");
-        }
-        System.out.println("Current volume: " + volume + "%");
-        System.out.println("Current channel: " + channel);
+    public Tv() {
+        super("TV", DEFAULT_VOLUME);
     }
 }
