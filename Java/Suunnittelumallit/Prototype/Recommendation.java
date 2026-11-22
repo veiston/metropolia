@@ -24,16 +24,8 @@ public class Recommendation implements Cloneable {
         }
     }
 
-    public String getTargetAudience() {
-        return targetAudience;
-    }
-
     public void setTargetAudience(String targetAudience) {
         this.targetAudience = targetAudience;
-    }
-
-    public List<Book> getBooks() {
-        return List.copyOf(books);
     }
 
     public void addBook(Book book) {

@@ -1,5 +1,4 @@
 ### Run it:
 ```bash
-javac *.java
-java Main
+javac *.java && java Main
 ```

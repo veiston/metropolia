@@ -23,7 +23,6 @@ public class ChatWindow {
         controller = new ChatController(username, mediator, this);
     }
 
-    // Called after every client is registered, so all recipients are known
     public void show(double x) {
         messageArea.setEditable(false);
         ComboBox<String> recipientBox = new ComboBox<>();

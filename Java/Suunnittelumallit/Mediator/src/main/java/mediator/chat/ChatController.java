@@ -1,5 +1,4 @@
 package mediator.chat;
-
 import java.util.List;
 
 public class ChatController {
