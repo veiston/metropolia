@@ -60,7 +60,7 @@ pipeline {
                 dir(APP_DIR) {
                     withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
                         withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
-                            sh 'mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN'
+                            sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=$SONAR_TOKEN'
                         }
                     }
                 }
