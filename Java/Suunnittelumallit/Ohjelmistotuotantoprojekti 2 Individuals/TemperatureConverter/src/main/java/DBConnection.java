@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -66,19 +67,30 @@ public class DBConnection {
         }
     }
 
-    private static void ensureColumns(Statement statement) {
-        try {
-            statement.execute("ALTER TABLE temperature_unit ADD COLUMN category TEXT NOT NULL DEFAULT 'temperature';");
-        } catch (SQLException ignored) {
+    // Upgrades databases created before these columns existed
+    private static void ensureColumns(Statement statement) throws SQLException {
+        addColumnIfMissing(statement, "temperature_unit", "category", "TEXT NOT NULL DEFAULT 'temperature'");
+        addColumnIfMissing(statement, "temp_record", "language", "TEXT NOT NULL DEFAULT 'en'");
+        addColumnIfMissing(statement, "temp_record", "timestamp", "TEXT NOT NULL DEFAULT ''");
+    }
+
+    private static void addColumnIfMissing(Statement statement, String table, String column, String definition)
+            throws SQLException {
+        if (hasColumn(statement, table, column)) {
+            return;
         }
-        try {
-            statement.execute("ALTER TABLE temp_record ADD COLUMN language TEXT NOT NULL DEFAULT 'en';");
-        } catch (SQLException ignored) {
+        statement.execute("ALTER TABLE " + table + " ADD COLUMN " + column + " " + definition + ";");
+    }
+
+    private static boolean hasColumn(Statement statement, String table, String column) throws SQLException {
+        try (ResultSet columns = statement.executeQuery("PRAGMA table_info(" + table + ");")) {
+            while (columns.next()) {
+                if (column.equals(columns.getString("name"))) {
+                    return true;
+                }
+            }
         }
-        try {
-            statement.execute("ALTER TABLE temp_record ADD COLUMN timestamp TEXT NOT NULL DEFAULT '';");
-        } catch (SQLException ignored) {
-        }
+        return false;
     }
 
     private static void populateDefaultData(Statement statement) throws SQLException {

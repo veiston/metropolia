@@ -1,5 +1,7 @@
 FROM eclipse-temurin:21-jre
 RUN apt-get update && apt-get install -y \
+    fonts-dejavu-core \
+    fonts-noto-cjk \
     libgl1 \
     libgl1-mesa-dri \
     libgtk-3-0 \

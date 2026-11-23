@@ -98,23 +98,16 @@ The database contains three key groups of tables:
 - Java 21 JDK & Maven 3.9+
 - Docker Desktop & XMing (optional, for container execution)
 
-### Quick Scripts (.bat & .sh)
+### Scripts (.bat & .sh)
 
-For simple one-click setup and execution, scripts are provided for both Windows (`.bat`) and Linux/macOS (`.sh`):
+- `install`: build and test
+- `run`: start the app
+- `jenkins`: start Jenkins in Docker on `http://localhost:8080`
+- `sonarqube-run`: start SonarQube in Docker on `http://localhost:9000`
 
-- **Build / Install**: `install.bat` / `./install.sh` (executes `mvn clean install` to test and package)
-- **Run Application**: `run.bat` / `./run.sh` (launches packaged application or JavaFX)
-- **Start Jenkins**: `jenkins.bat` / `./jenkins.sh` (starts Jenkins and opens `http://localhost:8080`)
-- **Install SonarQube**: `sonarqube-install.bat` / `./sonarqube-install.sh` (pulls LTS Docker image / setup)
-- **Start SonarQube**: `sonarqube-run.bat` / `./sonarqube-run.sh` (starts SonarQube and opens `http://localhost:9000`)
+Jenkins runs in its own container, so set the SonarQube server URL in Jenkins to `http://host.docker.internal:9000`, not `localhost`.
 
 ### Run Locally
-
-```bash
-mvn clean compile javafx:run
-```
-
-Or run the packaged shaded JAR:
 
 ```bash
 mvn clean package -DskipTests
@@ -133,7 +126,6 @@ Run with Maven:
 
 ```powershell
 mvn clean verify sonar:sonar `
-  "-Dsonar.projectKey=temperature-converter" `
   "-Dsonar.token=$env:SONAR_TOKEN" `
   "-Dsonar.host.url=http://localhost:9000"
 ```
