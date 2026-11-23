@@ -1,3 +1,13 @@
+// Runs a shell command with sh on Linux/macOS agents and bat on Windows agents.
+// Pass windowsCommand when the command reads environment variables, since sh uses $VAR and bat uses %VAR%.
+def runCommand(String unixCommand, String windowsCommand = null) {
+    if (isUnix()) {
+        sh unixCommand
+    } else {
+        bat(windowsCommand ?: unixCommand)
+    }
+}
+
 pipeline {
     agent any
 
@@ -9,6 +19,7 @@ pipeline {
     environment {
         APP_DIR = 'Java/Suunnittelumallit/Ohjelmistotuotantoprojekti 2 Individuals/TemperatureConverter'
         DOCKER_IMAGE = 'veiston/temperature-converter:latest'
+        SONARQUBE_SERVER = 'SonarQubeServer'
     }
 
     stages {
@@ -21,7 +32,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir(APP_DIR) {
-                    sh 'mvn clean install -DskipTests'
+                    runCommand('mvn clean install -DskipTests')
                 }
             }
         }
@@ -29,7 +40,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir(APP_DIR) {
-                    sh 'mvn test'
+                    runCommand('mvn test')
                 }
             }
         }
@@ -37,7 +48,7 @@ pipeline {
         stage('Code Coverage') {
             steps {
                 dir(APP_DIR) {
-                    sh 'mvn jacoco:report'
+                    runCommand('mvn jacoco:report')
                 }
             }
         }
@@ -54,13 +65,31 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                dir(APP_DIR) {
+                    withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                        withSonarQubeEnv("${env.SONARQUBE_SERVER}") {
+                            runCommand(
+                                'mvn sonar:sonar -Dsonar.projectKey=temperature-converter -Dsonar.token=$SONAR_TOKEN',
+                                'mvn sonar:sonar -Dsonar.projectKey=temperature-converter -Dsonar.token=%SONAR_TOKEN%'
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Docker Build and Push') {
             steps {
                 dir(APP_DIR) {
-                    sh "docker build -t ${DOCKER_IMAGE} ."
+                    runCommand("docker build -t ${DOCKER_IMAGE} .")
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                        sh "docker push ${DOCKER_IMAGE}"
+                        runCommand(
+                            'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin',
+                            'echo %DOCKER_PASS%| docker login -u %DOCKER_USER% --password-stdin'
+                        )
+                        runCommand("docker push ${DOCKER_IMAGE}")
                     }
                 }
             }

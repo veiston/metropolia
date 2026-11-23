@@ -22,7 +22,8 @@ public class DBConnection {
             statement.execute("CREATE TABLE IF NOT EXISTS temperature_unit ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "name TEXT NOT NULL UNIQUE, "
-                    + "symbol TEXT NOT NULL);");
+                    + "symbol TEXT NOT NULL, "
+                    + "category TEXT NOT NULL DEFAULT 'temperature');");
 
             // Unit translations table
             statement.execute("CREATE TABLE IF NOT EXISTS unit_translation ("
@@ -45,12 +46,31 @@ public class DBConnection {
                     + "FOREIGN KEY (source_unit_id) REFERENCES temperature_unit(id), "
                     + "FOREIGN KEY (target_unit_id) REFERENCES temperature_unit(id));");
 
+            // Speed, distance and time measurement records table
+            statement.execute("CREATE TABLE IF NOT EXISTS speed_measurement ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "distance REAL NOT NULL, "
+                    + "distance_unit_id INTEGER NOT NULL, "
+                    + "time REAL NOT NULL, "
+                    + "time_unit_id INTEGER NOT NULL, "
+                    + "speed REAL NOT NULL, "
+                    + "speed_unit_id INTEGER NOT NULL, "
+                    + "language TEXT NOT NULL DEFAULT 'en', "
+                    + "timestamp TEXT NOT NULL DEFAULT '', "
+                    + "FOREIGN KEY (distance_unit_id) REFERENCES temperature_unit(id), "
+                    + "FOREIGN KEY (time_unit_id) REFERENCES temperature_unit(id), "
+                    + "FOREIGN KEY (speed_unit_id) REFERENCES temperature_unit(id));");
+
             ensureColumns(statement);
             populateDefaultData(statement);
         }
     }
 
     private static void ensureColumns(Statement statement) {
+        try {
+            statement.execute("ALTER TABLE temperature_unit ADD COLUMN category TEXT NOT NULL DEFAULT 'temperature';");
+        } catch (SQLException ignored) {
+        }
         try {
             statement.execute("ALTER TABLE temp_record ADD COLUMN language TEXT NOT NULL DEFAULT 'en';");
         } catch (SQLException ignored) {

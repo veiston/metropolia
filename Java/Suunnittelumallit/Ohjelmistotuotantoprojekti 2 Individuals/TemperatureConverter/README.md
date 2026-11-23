@@ -13,7 +13,9 @@ This version implements **Database Localization** (In-class Assignment 6) extend
 - `init.sql` schema and seed script containing measurement tables, temperature units, speed/distance/time units, and translations across all 5 languages in UTF-8.
 - Comprehensive JUnit 5 unit tests with JaCoCo coverage (including localized lookups and fallback scenarios).
 - Dockerfile supporting X11/XMing display forwarding, deployed to Docker Hub.
-- Jenkinsfile for CI pipeline automation (build, test, JaCoCo, Docker build & push).
+- Jenkinsfile for CI pipeline automation (build, test, JaCoCo, SonarQube analysis, Docker build & push).
+- Static code analysis integration with SonarQube and SonarScanner (`sonar-project.properties`).
+- User Acceptance Testing (UAT) with 10 comprehensive test cases documented in `UAT_Test_Cases.md`.
 - Kubernetes deployment manifest (`temperature-converter.yaml`) for Minikube.
 
 ## 2. Technologies & Tools Used
@@ -86,6 +88,8 @@ The database contains three key groups of tables:
   - `TemperatureConverterTest`: Tests edge cases and extreme temperature threshold detection (-40°C and 50°C).
   - `DBConnectionTest`, `TemperatureUnitTest`, `TempRecordTest`: Test database connections and entity models.
 - **Coverage**: Measured with JaCoCo (`mvn test jacoco:report`). Core logic exceeds the required 80% line coverage.
+- **SonarQube Static Analysis**: Configured via `sonar-project.properties` and integrated into the Jenkins CI/CD pipeline.
+- **User Acceptance Testing (UAT)**: 10 functional acceptance test cases documented in [UAT_Test_Cases.md](UAT_Test_Cases.md) based on Sprint 6 criteria (100% pass rate).
 
 ## 6. How to Run
 
@@ -93,6 +97,16 @@ The database contains three key groups of tables:
 
 - Java 21 JDK & Maven 3.9+
 - Docker Desktop & XMing (optional, for container execution)
+
+### Quick Scripts (.bat & .sh)
+
+For simple one-click setup and execution, scripts are provided for both Windows (`.bat`) and Linux/macOS (`.sh`):
+
+- **Build / Install**: `install.bat` / `./install.sh` (executes `mvn clean install` to test and package)
+- **Run Application**: `run.bat` / `./run.sh` (launches packaged application or JavaFX)
+- **Start Jenkins**: `jenkins.bat` / `./jenkins.sh` (starts Jenkins and opens `http://localhost:8080`)
+- **Install SonarQube**: `sonarqube-install.bat` / `./sonarqube-install.sh` (pulls LTS Docker image / setup)
+- **Start SonarQube**: `sonarqube-run.bat` / `./sonarqube-run.sh` (starts SonarQube and opens `http://localhost:9000`)
 
 ### Run Locally
 
@@ -111,6 +125,23 @@ java -jar target/temperature-converter-1.0-SNAPSHOT.jar
 
 ```bash
 mvn test
+```
+
+### Run SonarQube Code Analysis
+
+Run with Maven:
+
+```powershell
+mvn clean verify sonar:sonar `
+  "-Dsonar.projectKey=temperature-converter" `
+  "-Dsonar.token=$env:SONAR_TOKEN" `
+  "-Dsonar.host.url=http://localhost:9000"
+```
+
+Or run with SonarScanner:
+
+```bash
+sonar-scanner
 ```
 
 ### Run with Docker & XMing ✅😎
